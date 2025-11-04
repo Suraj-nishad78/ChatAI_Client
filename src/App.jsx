@@ -8,25 +8,23 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import { useEffect } from "react";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [login, setLogin] = useState(false);
-  const [userId, setUserId] = useState(true);
+  const [userId, setUserId] = useState(false);
   const contextData = { login, setLogin, userId, setUserId };
 
-  //Work For 03-11-2025
-  // 1.Today work on it to make profile section 
-  // https://www.sliderrevolution.com/wp-content/uploads/2021/06/boot1.jpg
-  // 2.Image uplaod section in the profile & backend patch or put route for update
-  // 3.check for imageurl get but google is working or not based on this make a if else condition on both frontend & backend 
+  //Work for 05-11-2025
+  //https://img.freepik.com/premium-vector/subscription-plans-price-list-collection-landing-page-section_405867-89.jpg
+  // Work on upgrade section
 
-
-  useEffect(()=>{
+  useEffect(() => {
     const id = localStorage.getItem("userId");
-    if(id){
+    if (id) {
       setUserId(id);
     }
-  },[])
+  }, []);
   return (
     <>
       <AppContext.Provider value={contextData}>
@@ -37,6 +35,18 @@ function App() {
         </Routes>
         <Footer></Footer>
         {login && <Form></Form>}
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </AppContext.Provider>
     </>
   );

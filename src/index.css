@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Radley:ital@0;1&display=swap");
 @import "tailwindcss";
+@import 'react-toastify/dist/ReactToastify.css';
 
 * {
   font-family: Outfit;
@@ -144,6 +145,8 @@ body {
   /* transition: all linear .5s; */
   animation: profile .3s linear forwards;
   right: -300px;
+  width: 250px;
+  /* width: max-content; */
 }
 @keyframes profile {
   from{
@@ -160,6 +163,8 @@ body {
   width: 10em;
   height: 10em;
   position: relative;
+  border-radius: 50%;
+  border: 1px solid black;
 }
 .profile-details #profile-image-update img {
   border-radius: 50%;
@@ -179,7 +184,9 @@ body {
 .profile-details #profile-image-update span:hover {
   cursor: pointer;
 }
-
+.image-loader{
+  position: absolute;
+}
 .profile-details #profile-content {
   display: flex;
   flex-direction: column;
@@ -209,6 +216,14 @@ body {
   background-color: black;
   /* border-radius: 25px; */
   color: white;
+}
+.profile-btns{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1em;
 }
 #nav-close,
 #nav-toggle {

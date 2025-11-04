@@ -1,36 +1,52 @@
-import React, { useContext, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AppContext } from "../context/AppContext";
 import { Link } from "react-router-dom";
 import { assets } from "../assets/assets";
 import axios from "axios";
+import { TailSpin } from "react-loader-spinner";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [hideList, setHideList] = useState(false);
   const { login, setLogin, userId, setUserId } = useContext(AppContext);
   const [hideProfile, setHideProfile] = useState(false);
   const fileInputRef = useRef(null);
-  const [imageUrl, setImageUrl] = useState("");
+  const [loader, setLoader] = useState(false);
+  const [userData, setUserData] = useState(false);
 
   const handleClick = () => {
     fileInputRef.current.click(); // open file picker
   };
 
-  const handleFileChange = async(e) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0];
     if (!file) return;
 
     try {
       const data = new FormData();
       data.append("file", file);
-      data.append("upload_preset", "react_uploads_preset"); // your preset name
-      data.append("cloud_name", "dguxvwjkj");
-
+      data.append("upload_preset", import.meta.env.VITE_API_UPLOAD_PRESET); // your preset name
+      data.append("cloud_name", import.meta.env.VITE_API_CLOUD_NAME);
+      setLoader(true);
       const res = await axios.post(
-        "https://api.cloudinary.com/v1_1/dguxvwjkj/image/upload",
+        `https://api.cloudinary.com/v1_1/${
+          import.meta.env.VITE_API_CLOUD_NAME
+        }/image/upload`,
         data
       );
-      setImageUrl(res.data.secure_url);
+      const resPatch = await axios.patch(
+        `${import.meta.env.VITE_API_URL}users/updateProfileImage`,
+        {
+          userId,
+          imageURL: res.data.secure_url,
+        }
+      );
+      const { name, email, imageURL } = resPatch.data.user;
+      setUserData({ name, email, imageURL });
+      setLoader(false);
+      toast.success("Profile Pic Uploaded Successfully 😊")
     } catch (e) {
+      setLoader(false);
       console.log("Error occured: ", e);
     }
   };
@@ -48,6 +64,52 @@ const Navbar = () => {
     setHideProfile(false);
     localStorage.clear();
   };
+
+  const getUser = async (id) => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_API_URL}users/userDetails`,
+        {
+          userId: id,
+        }
+      );
+      const { name, email, imageURL } = res.data.user;
+      setUserData({ name, email, imageURL });
+    } catch (e) {
+      console.log("Error occured while fetching user details: ", e);
+    }
+  };
+
+  const deleteAccount = async() =>{
+    try{
+      const result = confirm("Are you sure you want delete your account?")
+      if(!result){
+        return;
+      }
+      const res  = await axios.delete(
+        `${import.meta.env.VITE_API_URL}users/delete`,
+        {
+          data:{userId},
+        }
+      );
+      if(res.status===200){
+        toast.success("Account Deleted Successfully 😊");
+      }else{
+        toast.error("Something went wrong. Please try again!");
+      }
+      setUserId("");
+      setHideProfile(false);
+      localStorage.clear();
+    }catch(e){
+      console.log("Error while deleting account: ", e);
+    }
+  }
+
+  useEffect(() => {
+    if (userId) {
+      getUser(userId);
+    }
+  }, [userId]);
 
   return (
     <div className="navbar" style={login ? { opacity: 0.5 } : {}}>
@@ -73,7 +135,9 @@ const Navbar = () => {
               {/* <Link onClick={logout}>Logout</Link> */}
               <div className="profile-section">
                 <img
-                  src={imageUrl?imageUrl:assets.profile_icon}
+                  src={
+                    userData.imageURL ? userData.imageURL : assets.profile_icon
+                  }
                   onClick={() => setHideProfile(!hideProfile)}
                   alt="profile"
                 />
@@ -82,15 +146,28 @@ const Navbar = () => {
                 <div className="profile-details">
                   <div id="profile-image-update">
                     <img
-                      src={imageUrl?imageUrl:"https://st4.depositphotos.com/11634452/21365/v/450/depositphotos_213659488-stock-illustration-picture-profile-icon-human-people.jpg"}
+                      src={
+                        userData.imageURL
+                          ? userData.imageURL
+                          : "https://st4.depositphotos.com/11634452/21365/v/450/depositphotos_213659488-stock-illustration-picture-profile-icon-human-people.jpg"
+                      }
                       loading="lazy"
                       alt="image"
                     />
-                    {/* <img
-                      src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dXNlciUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000"
-                      loading="lazy"
-                      alt="image"
-                    /> */}
+                    {loader && (
+                      <div className="image-loader">
+                        <TailSpin
+                          visible={true}
+                          height="40"
+                          width="40"
+                          color="#000000"
+                          ariaLabel="tail-spin-loading"
+                          radius="2"
+                          wrapperStyle={{}}
+                          wrapperClass=""
+                        />
+                      </div>
+                    )}
                     <input
                       type="file"
                       accept="image/*"
@@ -101,9 +178,12 @@ const Navbar = () => {
                     <span onClick={handleClick}>+</span>
                   </div>
                   <div id="profile-content">
-                    <h1>John Doe</h1>
-                    <p>iamsuraj0737@gmail.com</p>
-                    <button onClick={logout}>Logout</button>
+                    <h1>{userData.name ? userData.name : "user"}</h1>
+                    <p>{userData.email ? userData.email : "user@gmail.com"}</p>
+                    <div className="profile-btns">
+                      <button onClick={logout}>Logout</button>
+                      <button onClick={deleteAccount}>Delete</button>
+                    </div>
                   </div>
                 </div>
               )}
