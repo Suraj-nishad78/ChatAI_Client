@@ -9,15 +9,20 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import { useEffect } from "react";
 import { ToastContainer } from "react-toastify";
+import Chat from "./components/chat/Chat";
 
 function App() {
   const [login, setLogin] = useState(false);
   const [userId, setUserId] = useState(false);
-  const contextData = { login, setLogin, userId, setUserId };
-
-  //Work for 05-11-2025
-  //https://img.freepik.com/premium-vector/subscription-plans-price-list-collection-landing-page-section_405867-89.jpg
-  // Work on upgrade section
+  const [showChat, setShowChat] = useState(true);
+  const contextData = {
+    login,
+    setLogin,
+    userId,
+    setUserId,
+    showChat,
+    setShowChat,
+  };
 
   useEffect(() => {
     const id = localStorage.getItem("userId");
@@ -32,6 +37,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/upgrade" element={<Dashboard />}></Route>
+          <Route path="/chat" element={<Chat />}></Route>
         </Routes>
         <Footer></Footer>
         {login && <Form></Form>}
