@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Message from "./Message";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
@@ -6,10 +6,11 @@ import { AppContext } from "../../context/AppContext";
 
 const Chat = () => {
   const [input, setInput] = useState("");
+  const [loader, setLoader] = useState(false);
+  const { login, setLogin } = useContext(AppContext);
   const [chat, setChat] = useState([]);
-  const [loader, setLoader] = useState(false);  
+  const textareaRef = useRef(null);
 
-  const {login, setLogin} = useContext(AppContext);
   // const [chat, setChat] = useState([
   //   { res: "user", text: "who are you?" },
   //   { res: "ai", text: "Hello i am a chatAi" },
@@ -24,7 +25,7 @@ const Chat = () => {
   };
   const fetchData = async (query) => {
     try {
-      setLoader(true)
+      setLoader(true);
       const response = await axios.post("http://localhost:5000/fetch-data", {
         query,
       });
@@ -58,13 +59,34 @@ const Chat = () => {
       setInput("");
     }
   };
+  /*------------- */
 
-  
+  // Auto-resize whenever text changes
+  useEffect(() => {
+    const ta = textareaRef.current;
+    const maxHeight = 200;
+    if (!ta) return;
+
+    // reset height to auto to allow shrinking
+    ta.style.height = "auto";
+
+    const needed = ta.scrollHeight;
+    const capped = Math.min(needed, maxHeight);
+
+    ta.style.height = capped + "px";
+    ta.style.overflowY = needed > maxHeight ? "auto" : "hidden";
+  }, [input]);
+  /*------------- */
+
+  useEffect(() => {
+    const chatBox = document.querySelector(".chat-box");
+    if (chatBox) chatBox.scrollTop = chatBox.scrollHeight;
+  }, [chat]);
+
   return (
     <div
       className="chat-container"
       style={chat.length > 0 ? {} : { height: "100vh" }}
-      
     >
       {/* <div className="chat-box">
         <div className="ai-text">
@@ -87,38 +109,53 @@ const Chat = () => {
         </div>
       </div> */}
       {chat.length > 0 ? (
-        <div className="chat-box" style={login?{opacity:.5}:{}}>
+        <div className="chat-box" style={login ? { opacity: 0.5 } : {}}>
           {chat.map((data, i) => (
             <Message key={i} data={data}></Message>
           ))}
-          {loader && <div className="loader">
-            <ThreeDots
-              visible={true}
-              height="40"
-              width="40"
-              color="#3244db"
-              radius="5"
-              ariaLabel="three-dots-loading"
-              wrapperStyle={{}}
-              wrapperClass=""
-            />
-          </div>}
+          {loader && (
+            <div className="loader">
+              <ThreeDots
+                visible={true}
+                height="40"
+                width="40"
+                color="#3244db"
+                radius="5"
+                ariaLabel="three-dots-loading"
+                wrapperStyle={{}}
+                wrapperClass=""
+              />
+            </div>
+          )}
         </div>
       ) : (
         ""
       )}
 
-      <div className="input-box" style={login?{opacity:.5}:{}}>
+      <div
+        className={chat.length > 0 ? "input-box input-box-abs" : "input-box"}
+        style={login ? { opacity: 0.5 } : {}}
+      >
         <p className={chat.length > 0 ? "hide-text" : ""}>
           What are you working on?
         </p>
-        <input
+        {/* <input
           type="text"
           value={input}
           onChange={changeText}
           onKeyDown={queryHandle}
           placeholder="Ask anything..."
-          disabled={loader}          
+          disabled={loader}
+        /> */}
+        <textarea
+          ref={textareaRef}
+          rows={1}
+          value={input}
+          onChange={changeText}
+          onKeyDown={queryHandle}
+          disabled={loader}
+          className="chat-textarea"
+          placeholder="Ask anything..."
         />
       </div>
     </div>
