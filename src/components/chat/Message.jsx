@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 const Message = ({ data }) => {
   const [clsname, setClsName] = useState("");
 
+
   useEffect(() => {
     let str1 = data.res == "user" ? "user-text" : "ai-text";
     setClsName(str1);
@@ -12,6 +13,7 @@ const Message = ({ data }) => {
     let str1 = data.res == "user" ? "user-text" : "ai-text";
     setClsName(str1);
   }, []);
+
   const renderParagraphs = (text) => {
     if (!text) return null;
 

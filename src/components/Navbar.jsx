@@ -8,11 +8,11 @@ import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [hideList, setHideList] = useState(false);
-  const { login, setLogin, userId, setUserId } = useContext(AppContext);
   const [hideProfile, setHideProfile] = useState(false);
   const fileInputRef = useRef(null);
   const [loader, setLoader] = useState(false);
-  const [userData, setUserData] = useState(false);
+  const { login, setLogin, userId, setUserId, userData, setUserData } =
+    useContext(AppContext);
 
   const handleClick = () => {
     fileInputRef.current.click(); // open file picker
@@ -44,7 +44,7 @@ const Navbar = () => {
       const { name, email, imageURL } = resPatch.data.user;
       setUserData({ name, email, imageURL });
       setLoader(false);
-      toast.success("Profile Pic Uploaded Successfully 😊")
+      toast.success("Profile Pic Uploaded Successfully 😊");
     } catch (e) {
       setLoader(false);
       console.log("Error occured: ", e);
@@ -63,6 +63,7 @@ const Navbar = () => {
     setUserId("");
     setHideProfile(false);
     localStorage.clear();
+    setUserData(false)
   };
 
   const getUser = async (id) => {
@@ -80,30 +81,31 @@ const Navbar = () => {
     }
   };
 
-  const deleteAccount = async() =>{
-    try{
-      const result = confirm("Are you sure you want delete your account?")
-      if(!result){
+  const deleteAccount = async () => {
+    try {
+      const result = confirm("Are you sure you want delete your account?");
+      if (!result) {
         return;
       }
-      const res  = await axios.delete(
+      const res = await axios.delete(
         `${import.meta.env.VITE_API_URL}users/delete`,
         {
-          data:{userId},
+          data: { userId },
         }
       );
-      if(res.status===200){
+      if (res.status === 200) {
         toast.success("Account Deleted Successfully 😊");
-      }else{
+      } else {
         toast.error("Something went wrong. Please try again!");
       }
       setUserId("");
       setHideProfile(false);
       localStorage.clear();
-    }catch(e){
+      setUserData(false)
+    } catch (e) {
       console.log("Error while deleting account: ", e);
     }
-  }
+  };
 
   useEffect(() => {
     if (userId) {

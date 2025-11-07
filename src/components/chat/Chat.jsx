@@ -11,6 +11,9 @@ const Chat = () => {
   const [chat, setChat] = useState([]);
   const textareaRef = useRef(null);
 
+  const [displayedText, setDisplayedText] = useState("");
+  const fullText = "What are you working on?";
+
   // const [chat, setChat] = useState([
   //   { res: "user", text: "who are you?" },
   //   { res: "ai", text: "Hello i am a chatAi" },
@@ -48,6 +51,9 @@ const Chat = () => {
     }
   };
   const queryHandle = (e) => {
+    if (e.key === "Enter" && e.shiftKey) {
+      return; // Let the textarea handle the newline naturally
+    }
     if (e.key === "Enter" && input.trim() !== "") {
       const obj = {
         id: Date.now(),
@@ -59,6 +65,7 @@ const Chat = () => {
       setInput("");
     }
   };
+
   /*------------- */
 
   // Auto-resize whenever text changes
@@ -81,7 +88,22 @@ const Chat = () => {
   useEffect(() => {
     const chatBox = document.querySelector(".chat-box");
     if (chatBox) chatBox.scrollTop = chatBox.scrollHeight;
+    console.log(chat);
   }, [chat]);
+
+  /*------------*/
+
+  useEffect(() => {
+    let i = 0;
+    const interval = setInterval(() => {
+      setDisplayedText(fullText.slice(0, i + 1));
+      i++;
+      if (i === fullText.length) clearInterval(interval);
+    }, 100); // typing speed (ms per letter)
+
+    return () => clearInterval(interval);
+  }, []);
+  /*------------*/
 
   return (
     <div
@@ -111,7 +133,7 @@ const Chat = () => {
       {chat.length > 0 ? (
         <div className="chat-box" style={login ? { opacity: 0.5 } : {}}>
           {chat.map((data, i) => (
-            <Message key={i} data={data}></Message>
+            <Message key={data.id} data={data} ></Message>         
           ))}
           {loader && (
             <div className="loader">
@@ -137,7 +159,8 @@ const Chat = () => {
         style={login ? { opacity: 0.5 } : {}}
       >
         <p className={chat.length > 0 ? "hide-text" : ""}>
-          What are you working on?
+          {/* What are you working on? */}
+          {displayedText}
         </p>
         {/* <input
           type="text"

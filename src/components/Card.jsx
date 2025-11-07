@@ -3,10 +3,10 @@ import React, { useState } from "react";
 const Card = ({ data }) => {
   const [show, setShow] = useState(false);
 
-  const handleShow = () => {
+  const handleShow = (e) => {
     setShow(true);
   };
-  const handleHide = () => {
+  const handleHide = (e) => {
     setShow(false);
   };
   return (
@@ -14,8 +14,8 @@ const Card = ({ data }) => {
       <div className="upgrade-cart-container">
         <div
           className="upgrade-cart-title"
-          onMouseOver={handleShow}
-          onMouseOut={handleHide}
+          onMouseEnter={handleShow}
+          onMouseLeave={handleHide}
         >
           <img src={data.url} alt="home-icon" />
           <h1>{data.name}</h1>
@@ -27,11 +27,15 @@ const Card = ({ data }) => {
           <p>{data.desc}</p>
           <button>Buy NOW</button>
         </div>
-        {show && (
+        {
           <div
-            className="upgrade-cart-content"
-            onMouseOver={handleShow}
-            onMouseOut={handleHide}
+            className={`${
+              show
+                ? "upgrade-cart-content"
+                : "upgrade-cart-content upgrade-hide"
+            }`}
+            onMouseEnter={handleShow}
+            onMouseLeave={handleHide}
           >
             <h1>What will you get?</h1>
             {data.text.map((item, i) => (
@@ -41,7 +45,7 @@ const Card = ({ data }) => {
               </div>
             ))}
           </div>
-        )}
+        }
       </div>
     </>
   );

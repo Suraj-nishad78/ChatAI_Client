@@ -1,20 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { AppContext } from "./context/AppContext";
+import { ToastContainer } from "react-toastify";
 import Navbar from "./components/Navbar";
 import Form from "./components/Form";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
-import { useEffect } from "react";
-import { ToastContainer } from "react-toastify";
-import Chat from "./components/chat/Chat";
+import Chat_Page from "./pages/Chat_Page";
 
 function App() {
   const [login, setLogin] = useState(false);
   const [userId, setUserId] = useState(false);
   const [showChat, setShowChat] = useState(true);
+  const [userData, setUserData] = useState(false);
+  const [showFooter, setShowFooter] = useState(true);
+  const location = useLocation();
+
   const contextData = {
     login,
     setLogin,
@@ -22,6 +25,8 @@ function App() {
     setUserId,
     showChat,
     setShowChat,
+    userData, 
+    setUserData
   };
 
   useEffect(() => {
@@ -30,6 +35,14 @@ function App() {
       setUserId(id);
     }
   }, []);
+
+  useEffect(()=>{
+    if(location.pathname==="/chat"){
+      setShowFooter(false);
+    }else{
+      setShowFooter(true);
+    }
+  },[location])
   return (
     <>
       <AppContext.Provider value={contextData}>
@@ -37,9 +50,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/upgrade" element={<Dashboard />}></Route>
-          <Route path="/chat" element={<Chat />}></Route>
+          <Route path="/chat" element={<Chat_Page />}></Route>
         </Routes>
-        <Footer></Footer>
+        {showFooter && <Footer></Footer>}
         {login && <Form></Form>}
         <ToastContainer
           position="top-right"
