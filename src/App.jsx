@@ -16,6 +16,8 @@ function App() {
   const [showChat, setShowChat] = useState(true);
   const [userData, setUserData] = useState(false);
   const [showFooter, setShowFooter] = useState(true);
+  const [theme, setTheme] = useState(false);
+  const [chat, setChat] = useState([]);
   const location = useLocation();
 
   const contextData = {
@@ -25,8 +27,12 @@ function App() {
     setUserId,
     showChat,
     setShowChat,
-    userData, 
-    setUserData
+    userData,
+    setUserData,
+    chat,
+    setChat,
+    theme,
+    setTheme,
   };
 
   useEffect(() => {
@@ -36,13 +42,24 @@ function App() {
     }
   }, []);
 
-  useEffect(()=>{
-    if(location.pathname==="/chat"){
+  useEffect(() => {
+    if (location.pathname === "/chat") {
       setShowFooter(false);
-    }else{
+    } else {
       setShowFooter(true);
     }
-  },[location])
+  }, [location]);
+
+  useEffect(() => {
+    const body = document.body;
+
+    if (theme) {
+      body.classList.add("dark-theme");
+    } else {
+      body.classList.remove("dark-theme");
+    }
+  }, [theme]);
+
   return (
     <>
       <AppContext.Provider value={contextData}>

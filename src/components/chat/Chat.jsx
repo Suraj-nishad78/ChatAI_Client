@@ -7,8 +7,8 @@ import { AppContext } from "../../context/AppContext";
 const Chat = () => {
   const [input, setInput] = useState("");
   const [loader, setLoader] = useState(false);
-  const { login, setLogin } = useContext(AppContext);
-  const [chat, setChat] = useState([]);
+  const { login, setLogin, chat, setChat } = useContext(AppContext);
+  // const [chat, setChat] = useState([]);
   const textareaRef = useRef(null);
 
   const [displayedText, setDisplayedText] = useState("");

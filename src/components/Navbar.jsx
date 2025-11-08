@@ -11,8 +11,21 @@ const Navbar = () => {
   const [hideProfile, setHideProfile] = useState(false);
   const fileInputRef = useRef(null);
   const [loader, setLoader] = useState(false);
-  const { login, setLogin, userId, setUserId, userData, setUserData } =
-    useContext(AppContext);
+
+  const {
+    login,
+    setLogin,
+    userId,
+    setUserId,
+    userData,
+    setUserData,
+    theme,
+    setTheme,
+  } = useContext(AppContext);
+
+  const handleTheme = () => {
+    setTheme(!theme);
+  };
 
   const handleClick = () => {
     fileInputRef.current.click(); // open file picker
@@ -63,7 +76,7 @@ const Navbar = () => {
     setUserId("");
     setHideProfile(false);
     localStorage.clear();
-    setUserData(false)
+    setUserData(false);
   };
 
   const getUser = async (id) => {
@@ -101,7 +114,7 @@ const Navbar = () => {
       setUserId("");
       setHideProfile(false);
       localStorage.clear();
-      setUserData(false)
+      setUserData(false);
     } catch (e) {
       console.log("Error while deleting account: ", e);
     }
@@ -114,7 +127,10 @@ const Navbar = () => {
   }, [userId]);
 
   return (
-    <div className="navbar" style={login ? { opacity: 0.5 } : {}}>
+    <div
+      className="navbar"
+      style={login ? { opacity: 0.5 } : {}}
+    >
       <Link to="/">
         <div className={`navbar-title ${hideList ? "hide" : ""}`}>
           <img
@@ -195,6 +211,18 @@ const Navbar = () => {
               <Link onClick={showForm}>Login</Link>
             </li>
           )}
+          <div>
+            <img
+              className="theme"
+              onClick={handleTheme}
+              src={
+                theme
+                  ? "https://png.pngtree.com/png-vector/20210823/ourmid/pngtree-dark-mode-icon-light-png-clipart-png-image_3811921.jpg"
+                  : "https://static.thenounproject.com/png/1664849-200.png"
+              }
+              alt="theme"
+            />
+          </div>
         </ul>
         <div className="nav-close" onClick={showList} id="nav-close">
           <i className="ri-close-large-fill"></i>
