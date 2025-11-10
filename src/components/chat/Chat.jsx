@@ -14,7 +14,6 @@ const Chat = () => {
   const [displayedText, setDisplayedText] = useState("");
   const fullText = "What are you working on?";
 
-
   // const [chat, setChat] = useState([
   //   { res: "user", text: "who are you?" },
   //   { res: "ai", text: "Hello i am a chatAi" },
@@ -30,9 +29,12 @@ const Chat = () => {
   const fetchData = async (query) => {
     try {
       setLoader(true);
-      const response = await axios.post("http://localhost:5000/fetch-data", {
-        query,
-      });
+      const response = await axios.post(
+        `${import.meta.env.VITE_API_URL}fetch-data`,
+        {
+          query,
+        }
+      );
       const obj = {
         id: Date.now(),
         res: "ai",
@@ -154,26 +156,26 @@ const Chat = () => {
       ) : (
         ""
       )}
-        <div
-          className={chat.length > 0 ? "input-box input-box-abs" : "input-box"}
-          style={login ? { opacity: 0.5 } : {}}
-        >
-          <p className={chat.length > 0 ? "hide-text" : ""}>
-            {/* What are you working on? */}
-            {displayedText}
-          </p>
-          <textarea
-            ref={textareaRef}
-            rows={1}
-            value={input}
-            onChange={changeText}
-            onKeyDown={queryHandle}
-            disabled={loader}
-            className="chat-textarea"
-            placeholder="Ask anything..."
-          />
-        </div>
+      <div
+        className={chat.length > 0 ? "input-box input-box-abs" : "input-box"}
+        style={login ? { opacity: 0.5 } : {}}
+      >
+        <p className={chat.length > 0 ? "hide-text" : ""}>
+          {/* What are you working on? */}
+          {displayedText}
+        </p>
+        <textarea
+          ref={textareaRef}
+          rows={1}
+          value={input}
+          onChange={changeText}
+          onKeyDown={queryHandle}
+          disabled={loader}
+          className="chat-textarea"
+          placeholder="Ask anything..."
+        />
       </div>
+    </div>
   );
 };
 
