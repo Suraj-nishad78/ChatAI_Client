@@ -91,7 +91,6 @@ const Chat = () => {
   useEffect(() => {
     const chatBox = document.querySelector(".chat-box");
     if (chatBox) chatBox.scrollTop = chatBox.scrollHeight;
-    console.log(chat);
   }, [chat]);
 
   /*------------*/
