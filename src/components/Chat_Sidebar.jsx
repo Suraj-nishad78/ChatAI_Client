@@ -21,7 +21,7 @@ const Chat_Sidebar = () => {
   const handleMouseLeave = () => {
     setShowIcon(true);
   };
-  
+
   return (
     <>
       {!showSidebar ? (
@@ -49,7 +49,8 @@ const Chat_Sidebar = () => {
                 className="sidebar-content-list"
                 onClick={data.text === "New Chat" && handleNewChat}
               >
-                <img src={data.url} />
+                {/* <img src={data.url} /> */}
+                {/* <i class={data.url}></i> */}
                 <p>{data.text}</p>
               </div>
             ))}
@@ -78,17 +79,17 @@ const Chat_Sidebar = () => {
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
             >
-              <img
-                src={
-                  showIcon
-                    ? "https://images.seeklogo.com/logo-png/62/1/leonardo-ai-logo-png_seeklogo-621169.png"
-                    : "https://cdn-icons-png.freepik.com/512/10758/10758675.png"
-                }
-                alt="image"
-              />
+              {showIcon ? (
+                <img
+                  src="https://images.seeklogo.com/logo-png/62/1/leonardo-ai-logo-png_seeklogo-621169.png"
+                  alt="image"
+                />
+              ) : (
+                <i class="fa-solid fa-chevron-right"></i>
+              )}
               <span>Open sidebar</span>
             </div>
-            <img
+            {/* <img
               src="https://toppng.com/uploads/preview/chat-now-icon-png-11553722060rg3urfboym.png"
               alt="image"
             />
@@ -99,7 +100,7 @@ const Chat_Sidebar = () => {
             <img
               src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6ig-WiXHzvw9R0XOH7ViVQ5exGgpivNsLTg&s"
               alt="image"
-            />
+            /> */}
           </div>
           <div className="sidebar-mini-user">
             <img

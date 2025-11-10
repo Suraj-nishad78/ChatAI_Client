@@ -1,4 +1,3 @@
-
 import facebook_icon from "./facebook_icon.svg";
 import instagram_icon from "./instagram_icon.svg";
 import twitter_icon from "./twitter_icon.svg";
@@ -120,23 +119,24 @@ export const plans = [
 
 export const side_cont = [
   {
-    url:"https://toppng.com/uploads/preview/chat-now-icon-png-11553722060rg3urfboym.png",
-    text:"New Chat"
+    // url: "https://toppng.com/uploads/preview/chat-now-icon-png-11553722060rg3urfboym.png",
+    text: "New Chat",
   },
   {
-    url:"https://icons.veryicon.com/png/o/miscellaneous/icon-pack-vol-1/magnifying-glass-16.png",
-    text:"Search Chats"
+    // url: "https://icons.veryicon.com/png/o/miscellaneous/icon-pack-vol-1/magnifying-glass-16.png",
+    text: "Search Chats",
   },
   {
-    url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6ig-WiXHzvw9R0XOH7ViVQ5exGgpivNsLTg&s",
-    text:"Library"
+    // url: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6ig-WiXHzvw9R0XOH7ViVQ5exGgpivNsLTg&s",
+    text: "Library",
   },
   {
-    url:"https://p7.hiclipart.com/preview/380/764/937/paper-box-computer-icons-symbol-random-icons-thumbnail.jpg",
-    text:"Creativity"
+    // url: "https://p7.hiclipart.com/preview/380/764/937/paper-box-computer-icons-symbol-random-icons-thumbnail.jpg",
+    // url:"fa-brands fa-creative-commons-share",
+    text: "Creativity",
   },
   {
-    url:"https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/folder.png",
-    text:"Projects"
-  }
-]
+    // url: "https://d1nhio0ox7pgb.cloudfront.net/_img/o_collection_png/green_dark_grey/256x256/plain/folder.png",
+    text: "Projects",
+  },
+];

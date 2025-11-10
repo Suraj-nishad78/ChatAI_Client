@@ -8,11 +8,12 @@ const Chat = () => {
   const [input, setInput] = useState("");
   const [loader, setLoader] = useState(false);
   const { login, setLogin, chat, setChat } = useContext(AppContext);
+  // const { login, setLogin } = useContext(AppContext);
   // const [chat, setChat] = useState([]);
   const textareaRef = useRef(null);
-
   const [displayedText, setDisplayedText] = useState("");
   const fullText = "What are you working on?";
+
 
   // const [chat, setChat] = useState([
   //   { res: "user", text: "who are you?" },
@@ -133,7 +134,7 @@ const Chat = () => {
       {chat.length > 0 ? (
         <div className="chat-box" style={login ? { opacity: 0.5 } : {}}>
           {chat.map((data, i) => (
-            <Message key={data.id} data={data} ></Message>         
+            <Message key={data.id} data={data}></Message>
           ))}
           {loader && (
             <div className="loader">
@@ -153,35 +154,26 @@ const Chat = () => {
       ) : (
         ""
       )}
-
-      <div
-        className={chat.length > 0 ? "input-box input-box-abs" : "input-box"}
-        style={login ? { opacity: 0.5 } : {}}
-      >
-        <p className={chat.length > 0 ? "hide-text" : ""}>
-          {/* What are you working on? */}
-          {displayedText}
-        </p>
-        {/* <input
-          type="text"
-          value={input}
-          onChange={changeText}
-          onKeyDown={queryHandle}
-          placeholder="Ask anything..."
-          disabled={loader}
-        /> */}
-        <textarea
-          ref={textareaRef}
-          rows={1}
-          value={input}
-          onChange={changeText}
-          onKeyDown={queryHandle}
-          disabled={loader}
-          className="chat-textarea"
-          placeholder="Ask anything..."
-        />
+        <div
+          className={chat.length > 0 ? "input-box input-box-abs" : "input-box"}
+          style={login ? { opacity: 0.5 } : {}}
+        >
+          <p className={chat.length > 0 ? "hide-text" : ""}>
+            {/* What are you working on? */}
+            {displayedText}
+          </p>
+          <textarea
+            ref={textareaRef}
+            rows={1}
+            value={input}
+            onChange={changeText}
+            onKeyDown={queryHandle}
+            disabled={loader}
+            className="chat-textarea"
+            placeholder="Ask anything..."
+          />
+        </div>
       </div>
-    </div>
   );
 };
 

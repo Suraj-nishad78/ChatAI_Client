@@ -211,7 +211,7 @@ const Navbar = () => {
               <Link onClick={showForm}>Login</Link>
             </li>
           )}
-          <div>
+          <div className="theme-nav">
             <img
               className="theme"
               onClick={handleTheme}
@@ -225,7 +225,7 @@ const Navbar = () => {
           </div>
         </ul>
         <div className="nav-close" onClick={showList} id="nav-close">
-          <i className="ri-close-large-fill"></i>
+          <i className="fa-solid fa-bars"></i>
         </div>
       </div>
       <div
@@ -233,7 +233,7 @@ const Navbar = () => {
         onClick={showList}
         id="nav-toggle"
       >
-        <i className="ri-apps-2-fill"></i>
+        <i className="fa-solid fa-bars"></i>
       </div>
     </div>
   );

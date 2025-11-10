@@ -26,7 +26,7 @@ export default function Dashboard() {
       }, 10 * 60 * 1000); // 10 minutes
     }
   }, []);
-
+  
   return (
     <div className="upgrade-container">
       <div className="upgrade-title">
