@@ -3,6 +3,7 @@ import Message from "./Message";
 import axios from "axios";
 import { ThreeDots } from "react-loader-spinner";
 import { AppContext } from "../../context/AppContext";
+import generateContent from "../../gimini/gimini";
 
 const Chat = () => {
   const [input, setInput] = useState("");
@@ -29,16 +30,22 @@ const Chat = () => {
   const fetchData = async (query) => {
     try {
       setLoader(true);
-      const response = await axios.post(
-        `${import.meta.env.VITE_API_URL}fetch-data`,
-        {
-          query,
-        }
-      );
+      // const response = await axios.post(
+      //   `${import.meta.env.VITE_API_URL}fetch-data`,
+      //   {
+      //     query,
+      //   }
+      // );
+      // const obj = {
+      //   id: Date.now(),
+      //   res: "ai",
+      //   text: response.data.data,
+      // };
+      const response = await generateContent(query);
       const obj = {
         id: Date.now(),
         res: "ai",
-        text: response.data.data,
+        text: response,
       };
       setChat((prevChat) => [...prevChat, obj]);
       setLoader(false);
