@@ -9,8 +9,6 @@ const Chat = () => {
   const [input, setInput] = useState("");
   const [loader, setLoader] = useState(false);
   const { login, setLogin, chat, setChat } = useContext(AppContext);
-  // const { login, setLogin } = useContext(AppContext);
-  // const [chat, setChat] = useState([]);
   const textareaRef = useRef(null);
   const [displayedText, setDisplayedText] = useState("");
   const fullText = "What are you working on?";
@@ -60,19 +58,27 @@ const Chat = () => {
       setLoader(false);
     }
   };
+
+  const handleQuery = () => {
+    if (input.trim() === "") return;
+
+    const obj = {
+      id: Date.now(),
+      res: "user",
+      text: input,
+    };
+
+    setChat((prevChat) => [...prevChat, obj]);
+    fetchData(input);
+    setInput("");
+  };
+
   const queryHandle = (e) => {
-    if (e.key === "Enter" && e.shiftKey) {
-      return; // Let the textarea handle the newline naturally
-    }
-    if (e.key === "Enter" && input.trim() !== "") {
-      const obj = {
-        id: Date.now(),
-        res: "user",
-        text: input,
-      };
-      setChat((prevChat) => [...prevChat, obj]);
-      fetchData(input);
-      setInput("");
+    if (e.key === "Enter" && e.shiftKey) return; // Allow Shift+Enter for newline
+
+    if (e.key === "Enter") {
+      e.preventDefault(); // prevent new line
+      handleQuery();
     }
   };
 
@@ -170,7 +176,7 @@ const Chat = () => {
           {/* What are you working on? */}
           {displayedText}
         </p>
-        <textarea
+        {/* <textarea
           ref={textareaRef}
           rows={1}
           value={input}
@@ -179,7 +185,24 @@ const Chat = () => {
           disabled={loader}
           className="chat-textarea"
           placeholder="Ask anything..."
-        />
+        /> */}
+        <div className="textarea-for-repo">
+          <textarea
+            ref={textareaRef}
+            rows={1}
+            value={input}
+            onChange={changeText}
+            onKeyDown={queryHandle}
+            disabled={loader}
+            placeholder="Ask anything..."
+            // className="chat-textarea"
+          />
+          {input.trim() && (
+            <span onClick={handleQuery}>
+              <i class="fa-solid fa-arrow-up"></i>
+            </span>
+          )}
+        </div>
       </div>
     </div>
   );

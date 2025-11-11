@@ -41,6 +41,7 @@ body {
   /* background: var(--background-color); */
   background-color: aliceblue;
   z-index: 999;
+  width: 100%;
 }
 .navbar-title {
   display: flex;
@@ -702,6 +703,100 @@ body {
   scrollbar-width: thin;
   scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
 }
+/*---------New Input Box----------*/
+/* .chat-textarea {
+  margin-top: 1.5em;
+  width: 100%;
+  font-size: 1.1em;
+  padding: 0.6rem 1rem;
+  border-radius: 16px;
+  border: 1px solid #4b4848;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.5;
+  box-sizing: border-box;
+  outline: none;
+  background: #fff;
+  color: #222;
+  max-height: 160px;
+} */
+.textarea-for-repo {
+  margin-top: 0.5em;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* background-color: blue; */
+  padding: 0.6em 0em 0.6em 1em;
+  border-radius: 16px;
+  border: 1px solid #4b4848;
+  background-color: white;
+  box-sizing: border-box;
+  position: relative;
+}
+.textarea-for-repo textarea {
+  width: 100%;
+  border: none;
+  outline: none;
+  font-size: 1.1em;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.5;
+  max-height: 160px;
+  transition: box-shadow 150ms ease, border-color 150ms ease,
+    background 150ms ease;
+
+  /* Smooth scrolling for a clean feel */
+  scroll-behavior: smooth;
+
+  /* Subtle inner shadow for depth */
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+.textarea-for-repo textarea:focus {
+  border-color: #5080dc;
+  /* box-shadow: 0 0 0 3px rgba(80, 128, 220, 0.15); */
+}
+
+/* Clean scrollbar styling (Chrome, Edge, Safari) */
+.textarea-for-repo textarea::-webkit-scrollbar {
+  width: 6px;
+}
+
+.textarea-for-repo textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.textarea-for-repo textarea::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 3px;
+}
+
+.textarea-for-repo textarea::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+/* Firefox scrollbar */
+.textarea-for-repo textarea {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
+.textarea-for-repo span {
+  width: 2em;
+  height: 2em;
+  background-color: black;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: absolute;
+  right: 1em;
+  bottom: 0.3em;
+}
+.textarea-for-repo span:hover {
+  cursor: pointer;
+}
+/*---------New Input Box----------*/
 /*------------------*/
 .hide-text {
   visibility: hidden;
@@ -1428,9 +1523,13 @@ body.dark-theme .user {
   border-radius: 5px;
   background-color: rgb(29, 27, 27);
 }
+body.dark-theme .textarea-for-repo textarea {
+  color: black;
+}
 /*-------------Dark-Theme--------------*/
 
-/*----------- dummy---------*/
+/*----------- Responsice Screen code---------*/
+/* For the screen of tablet */
 @media screen and (max-width: 568px) {
   /*----------Navbar-----------*/
   .nav-close,
@@ -1511,7 +1610,6 @@ body.dark-theme .user {
   }
 
   /*----------AI Brief-----------*/
-  /* .ai-brief-container { margin-top: 2em; } */
   .ai-brief-content {
     flex-direction: column;
   }
@@ -1630,5 +1728,133 @@ body.dark-theme .user {
     top: 75%;
   }
 }
+/* For the screen of tablet */
+@media screen and (min-width: 569px) and (max-width: 768px) {
+  /*----------Navbar-----------*/
+  .navbar-list ul li {
+    margin-top: 0.2em;
+    font-size: 1.3em;
+    width: max-content;
+  }
+  .navbar-list ul .theme {
+    margin-top: 0.5em;
+  }
+  /*----------Landing-----------*/
+  .landing-container {
+    height: 100vh;
+    width: 100%;
+  }
+  .landing-container h1 {
+    font-size: 3em;
+    line-height: 0.9em;
+    width: 80%;
+  }
+  .landing-container p {
+    margin-top: 1em;
+    font-size: 1.2em;
+    width: 80%;
+    font-weight: 500;
+    text-align: center;
+  }
+  .landing-container button {
+    margin-top: 1.2em;
+  }
 
-/*----------- dummy---------*/
+  /*----------Chat Intro-----------*/
+  .intro-msg {
+    width: 100%;
+  }
+  /*----------AI Brief-----------*/
+  .ai-brief-content {
+    /* flex-direction: column; */
+    padding: 0em 2em;
+  }
+  .ai-brief-img img {
+    width: 17em;
+    height: 17em;
+  }
+  .ai-brief-into {
+    margin-top: 1em;
+    width: 80%;
+    margin-left: 1em;
+  }
+  .ai-brief-into h1 {
+    font-size: 1.2em;
+    /* text-align: center; */
+  }
+  .ai-brief-into p {
+    line-height: 1.25;
+    font-size: 0.9em;
+  }
+
+  /*----------Testmonials-----------*/
+  .test-content {
+    padding: 1em 0.8em;
+    border-radius: 5px;
+    min-height: 18em;
+  }
+  .test-header img {
+    width: 3em;
+  }
+  .test-header h1 {
+    margin-top: .5em;
+    font-size: 1.2em;
+  }
+  .test-text {
+    width: 13em;
+    color: rgb(124, 110, 110);
+    font-size: 0.9em;
+    text-align: center;
+    font-weight: 600;
+  }
+  /*----------Footer-----------*/
+  .footer-container {
+    padding: 0.5em 1em;
+  }
+  /*------------Upgrade-------------*/
+  .upgrade-cart-box {
+    flex-wrap: wrap;
+    gap: 1em;
+  }
+  /*------------Sidebar-------------*/
+  .chat-sidebar-container {
+    display: none;
+  }
+  .sidebar-mini {
+    display: none;
+  }
+
+  /*------------chat-------------*/
+   .chat-container {
+    padding: 1em;
+  }
+  .chat-box {
+    width: 100%;
+    padding: 1em;
+    /* background-color: blue; */
+  }
+  .msg {
+    margin: 0em 1em;
+    width: 50%;
+    min-width: 10em;
+    padding: 0.5em 0.9em;
+    margin-bottom: 2em;
+  }
+  .input-box {
+    width: 100%;
+    padding: 0em 1em;
+    
+  }
+  .input-box p {
+    /* font-size: 1.3em; */
+  }
+  .input-box-abs {
+    top: 75%;
+  } 
+}
+/* For the screen of laptop */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+}
+/* For the screen of desktop */
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+}
