@@ -1569,6 +1569,7 @@ body.dark-theme .textarea-for-repo textarea {
   }
   .profile-details {
     top: 3.5em;
+    left: -7em;
   }
 
   /*----------Landing-----------*/
