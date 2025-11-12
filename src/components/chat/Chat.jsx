@@ -8,20 +8,20 @@ import generateContent from "../../gimini/gimini";
 const Chat = () => {
   const [input, setInput] = useState("");
   const [loader, setLoader] = useState(false);
-  // const { login, setLogin, chat, setChat } = useContext(AppContext);
-  const { login, setLogin } = useContext(AppContext);
+  const { login, setLogin, chat, setChat } = useContext(AppContext);
+  // const { login, setLogin } = useContext(AppContext);
   const textareaRef = useRef(null);
   const [displayedText, setDisplayedText] = useState("");
   const fullText = "What are you working on?";
 
-  const [chat, setChat] = useState([
-    { res: "user", text: "who are you?" },
-    { res: "ai", text: "Hello i am a chatAi" },
-    { res: "user", text: "what can you do for me>" },
-    { res: "ai", text: "Anything i can do for you to give you any information." },
-    { res: "user", text: "wow nice!" },
-    { res: "ai", text: "tell me what you want to need." },
-  ]);
+  // const [chat, setChat] = useState([
+  //   { res: "user", text: "who are you?" },
+  //   { res: "ai", text: "Hello i am a chatAi" },
+  //   { res: "user", text: "what can you do for me>" },
+  //   { res: "ai", text: "Anything i can do for you to give you any information." },
+  //   { res: "user", text: "wow nice!" },
+  //   { res: "ai", text: "tell me what you want to need." },
+  // ]);
 
   const changeText = (e) => {
     setInput(e.target.value);
