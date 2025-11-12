@@ -1,7 +1,9 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AppContext } from "../context/AppContext";
 
 const Card = ({ data }) => {
   const [show, setShow] = useState(false);
+  const{login, setLogin} = useContext(AppContext);
 
   const handleShow = (e) => {
     setShow(true);
@@ -9,6 +11,9 @@ const Card = ({ data }) => {
   const handleHide = (e) => {
     setShow(false);
   };
+  const handleForm = () =>{
+    setLogin(true);
+  }
   return (
     <>
       <div className="upgrade-cart-container">
@@ -25,7 +30,7 @@ const Card = ({ data }) => {
           </div>
           <h3>Per Month</h3>
           <p>{data.desc}</p>
-          <button>Buy NOW</button>
+          <button onClick={handleForm}>Buy NOW</button>
         </div>
         {
           <div
