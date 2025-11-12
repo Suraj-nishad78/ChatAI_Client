@@ -305,15 +305,13 @@ body {
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  position: relative;
 }
 /*------------Chat-Sidebar---------*/
 .chat-sidebar-container {
   width: 22em;
   height: 100vh;
-  /* background-color: black; */
-  /* background-color: rgb(247, 250, 252); */
   background-color: aliceblue;
-  /* border: 1px solid black; */
   position: relative;
   transition: all 0.6s ease;
   animation: sidebar 0.8s linear forwards;
@@ -1715,7 +1713,7 @@ body.dark-theme .textarea-for-repo textarea {
     width: 14em;
     min-width: 10em;
     padding: 0.5em 0.9em;
-    margin-bottom: 3em;
+    margin-bottom: 4em;
   }
   .input-box {
     width: 100%;
@@ -1739,6 +1737,10 @@ body.dark-theme .textarea-for-repo textarea {
   .navbar-list ul .theme {
     margin-top: 0.5em;
   }
+  .profile-section {
+    top: 5px;
+  }
+
   /*----------Landing-----------*/
   .landing-container {
     height: 100vh;
@@ -1764,14 +1766,15 @@ body.dark-theme .textarea-for-repo textarea {
   .intro-msg {
     width: 100%;
   }
+
   /*----------AI Brief-----------*/
   .ai-brief-content {
-    /* flex-direction: column; */
-    padding: 0em 2em;
+    padding: 0 2em;
   }
   .ai-brief-img img {
     width: 17em;
     height: 17em;
+    object-fit: cover;
   }
   .ai-brief-into {
     margin-top: 1em;
@@ -1780,7 +1783,6 @@ body.dark-theme .textarea-for-repo textarea {
   }
   .ai-brief-into h1 {
     font-size: 1.2em;
-    /* text-align: center; */
   }
   .ai-brief-into p {
     line-height: 1.25;
@@ -1795,9 +1797,10 @@ body.dark-theme .textarea-for-repo textarea {
   }
   .test-header img {
     width: 3em;
+    height: auto;
   }
   .test-header h1 {
-    margin-top: .5em;
+    margin-top: 0.5em;
     font-size: 1.2em;
   }
   .test-text {
@@ -1807,54 +1810,186 @@ body.dark-theme .textarea-for-repo textarea {
     text-align: center;
     font-weight: 600;
   }
+
   /*----------Footer-----------*/
   .footer-container {
     padding: 0.5em 1em;
   }
+
   /*------------Upgrade-------------*/
   .upgrade-cart-box {
     flex-wrap: wrap;
     gap: 1em;
   }
+
   /*------------Sidebar-------------*/
-  .chat-sidebar-container {
-    display: none;
-  }
+  .chat-sidebar-container,
   .sidebar-mini {
     display: none;
   }
 
   /*------------chat-------------*/
-   .chat-container {
+  .chat-container {
     padding: 1em;
   }
   .chat-box {
     width: 100%;
     padding: 1em;
-    /* background-color: blue; */
   }
   .msg {
-    margin: 0em 1em;
+    margin: 0 1em 2em;
     width: 50%;
     min-width: 10em;
     padding: 0.5em 0.9em;
-    margin-bottom: 2em;
   }
   .input-box {
     width: 100%;
-    padding: 0em 1em;
-    
-  }
-  .input-box p {
-    /* font-size: 1.3em; */
+    padding: 0 1em;
   }
   .input-box-abs {
     top: 75%;
-  } 
+  }
 }
+
 /* For the screen of laptop */
 @media screen and (min-width: 769px) and (max-width: 1024px) {
+  /*----------Navbar-----------*/
+  .navbar-list ul li {
+    margin-top: 0.3em;
+    font-size: 1.1em;
+  }
+  .navbar-list ul .theme {
+    margin-top: 0.2em;
+  }
+  .profile-section {
+    top: 5px;
+  }
+
+  /*----------Landing-----------*/
+  .landing-container {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .landing-container h1 {
+    font-size: 3.5em;
+    line-height: 1em;
+    width: 75%;
+  }
+  .landing-container p {
+    margin-top: 1em;
+    font-size: 1.3em;
+    width: 70%;
+    text-align: center;
+  }
+  .landing-container button {
+    margin-top: 1.5em;
+    font-size: 1em;
+    padding: 0.6em 1.5em;
+  }
+
+  /*----------Chat Intro-----------*/
+  .intro-msg {
+    width: 90%;
+    margin: auto;
+    font-size: 1.1em;
+  }
+
+  /*----------AI Brief-----------*/
+  .ai-brief-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2em;
+    padding: 1em 3em;
+  }
+  .ai-brief-img img {
+    width: 20em;
+    height: 20em;
+    object-fit: cover;
+  }
+  .ai-brief-into {
+    width: 60%;
+  }
+  .ai-brief-into h1 {
+    font-size: 1.5em;
+  }
+  .ai-brief-into p {
+    font-size: 1em;
+    line-height: 1.4;
+  }
+
+  /*----------Testimonials-----------*/
+  .test-content {
+    padding: 1.5em;
+    border-radius: 8px;
+    min-height: 20em;
+  }
+  .test-header img {
+    width: 3.5em;
+  }
+  .test-header h1 {
+    margin-top: 0.5em;
+    font-size: 1.3em;
+  }
+  .test-text {
+    width: 15em;
+    font-size: 1em;
+    text-align: center;
+    color: rgb(110, 100, 100);
+  }
+
+  /*----------Footer-----------*/
+  .footer-container {
+    padding: 1em 2em;
+    text-align: center;
+  }
+
+  /*------------Upgrade-------------*/
+  .upgrade-cart-box {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 2em;
+  }
+
+  /*------------Sidebar-------------*/
+  .chat-sidebar-container {
+    display: block;
+    width: 25%;
+  }
+  .side-user {
+    width: 10.7em;
+  }
+
+  /*------------Chat-------------*/
+  .chat-container {
+    display: flex;
+    justify-content: center;
+    padding: 1.5em;
+  }
+  .chat-box {
+    width: 100%;
+    padding: 1em 1.5em;
+  }
+  .msg {
+    min-width: 2em;
+    max-width: 22em;
+    padding: 0.6em 1em;
+    margin: 0 1em 2em;
+  }
+  .input-box {
+    width: 100%;
+    padding: 0 1.5em;
+  }
+  .input-box-abs {
+    top: 80%;
+  }
 }
+
 /* For the screen of desktop */
 @media screen and (min-width: 1025px) and (max-width: 1440px) {
 }
+/*--------------------*/

@@ -127,10 +127,7 @@ const Navbar = () => {
   }, [userId]);
 
   return (
-    <div
-      className="navbar"
-      style={login ? { opacity: 0.5 } : {}}
-    >
+    <div className="navbar" style={login ? { opacity: 0.5 } : {}}>
       <Link to="/">
         <div className={`navbar-title ${hideList ? "hide" : ""}`}>
           <img
@@ -150,7 +147,6 @@ const Navbar = () => {
           </li>
           {userId ? (
             <div className="profile">
-              {/* <Link onClick={logout}>Logout</Link> */}
               <div className="profile-section">
                 <img
                   src={

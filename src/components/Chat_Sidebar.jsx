@@ -24,7 +24,7 @@ const Chat_Sidebar = () => {
 
   return (
     <>
-      {!showSidebar ? (
+      {showSidebar ? (
         <div className="chat-sidebar-container">
           <div className="sidebar-title">
             <div className="sidebar-title-box">
@@ -89,18 +89,6 @@ const Chat_Sidebar = () => {
               )}
               <span>Open sidebar</span>
             </div>
-            {/* <img
-              src="https://toppng.com/uploads/preview/chat-now-icon-png-11553722060rg3urfboym.png"
-              alt="image"
-            />
-            <img
-              src="https://icons.veryicon.com/png/o/miscellaneous/icon-pack-vol-1/magnifying-glass-16.png"
-              alt="image"
-            />
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6ig-WiXHzvw9R0XOH7ViVQ5exGgpivNsLTg&s"
-              alt="image"
-            /> */}
           </div>
           <div className="sidebar-mini-user">
             <img
